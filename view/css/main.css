@@ -1,0 +1,20 @@
+.adminForm{
+    width: 100%;
+    max-width: 300px;
+    display: table;
+}
+.adminForm span{
+
+}
+.adminform input{
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1%;
+    margin: 2% 0;
+}
+.adminForm button{
+    margin-top: 2%;
+    width: 100%;
+    height: 30px;
+    float: right;
+}
