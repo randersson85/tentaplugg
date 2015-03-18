@@ -20,7 +20,6 @@ class sqlCRUD
     public function getAll()
     {
         $result = ($this->pdo->query('SELECT * FROM bilar')->fetchAll(pdo::FETCH_BOTH));
-        print_r(json_encode($result));
         return $result;
 
     }

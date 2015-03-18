@@ -2,8 +2,7 @@
 require_once '../model/sqlCRUD.php';
 
 $ctrl = new Controller();
-echo json_encode(getAll());
-   echo $ctrl->getAll();
+echo json_encode($ctrl->getAll());
 
 class Controller
 {
