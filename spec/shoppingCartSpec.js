@@ -6,8 +6,8 @@ describe("shopping cart", function() {
     beforeEach(function() {
        cart = new ShoppingCart();
         bilar.push(new Bil("ABC123","Volvo","142", 12000));
-        bilar.push(new Bil("DEF456","Volvo","142", 12000));
-        bilar.push(new Bil("GHI789","Volvo","142", 12000));
+        bilar.push(new Bil("DEF456","Volvo","142", 11000));
+        bilar.push(new Bil("GHI789","Volvo","142", 10000));
     });
 
     it("should be empty when created", function() {
@@ -39,6 +39,31 @@ describe("shopping cart", function() {
         cart.add(bilar[0]);
         cart.add(bilar[0]);
         expect(cart.getItem("ABC123").ammount).toBe(2);
+    });
+
+    it("sum matches all item prices and quantitites", function(){
+        cart.add(bilar[0]);
+        cart.add(bilar[0]);
+        cart.add(bilar[1]);
+        expect(cart.getSum()).toBe(35000);
+
+    });
+
+    it("Should decrease the ammount on a specific product when promtped", function(){
+        cart.add(bilar[0]);
+        cart.add(bilar[0]);
+        cart.decrease("ABC123");
+        expect(cart.getItem("ABC123").ammount).toBe(1);
+    });
+
+    it ("Should be able to remember the current cart when the customer returns to the site", function(){
+        cart.setCookie();
+        expect(document.cookie).toBeTruthy();
+    });
+
+    it ("Should save the products to the persistent storage", function(){
+        cart.add(bilar[0]);
+        $("bil").data(JSON.parse($.cookie("shoppingCart"))).toBe(bil.regnr === "ABC123");
     });
 
 });

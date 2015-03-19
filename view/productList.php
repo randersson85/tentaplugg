@@ -1,27 +1,48 @@
 <html>
     <head>
         <title>OMG! Cars!</title>
+        <script src="/tentaplugg/bower_components/jquery/dist/jquery.min.js"></script>
     </head>
 <body>
 
-<ul>
-    <?php
-    include_once '../controller/Controller.php';
-    $crud = new Controller();
-    $products = $crud->getOne('ABC123');
 
-    foreach ($products as $bil) {
-            echo '<li>',$bil['regnr'],',',$bil['tillverkare'],',',$bil['modell'],'</li>';
-    }
+<table class="productList">
 
-    $crud->updateOne('ABC123','Saab','9000',15000);
 
-    $products = $crud->getOne('ABC123');
-    foreach ($products as $bil) {
-        echo '<li>',$bil['regnr'],',',$bil['tillverkare'],',',$bil['modell'],'</li>';
-    }
+</table>
+<div class="products">
 
-    ?>
-</ul>
+
+</div>
+<script>
+    var data;
+    $(document).ready(function () {
+        $.ajax({
+            method: "GET",
+            url: "/tentaplugg/controller/Controller.php",
+            success: function (data, err) {
+                data = JSON.parse(data);
+
+                for (i = 0; i < data.length; i++) {
+                    $('.products').append('<div>' +
+                        '<h3 class="regno">'+ data[i]['regnr']+'</h3>'+
+                        '<span class="manufacturer">' + data[i]['tillverkare']+'</span>'+'<br>'+
+                        '<span class="model">' + data[i]['modell']+'</span>'+'<br>'+
+                        '<span class="price">' + data[i]['pris']+'</span>'+'<br>'+
+                        '<button>'
+
+                    '</div>');
+                }
+                console.log(err);
+                console.log(data);
+            }
+        })
+    });
+
+
+
+
+
+</script>
 </body>
 </html>
